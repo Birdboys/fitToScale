@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://cfe1htk4pesgt"]
+
+[ext_resource type="Script" path="res://scripts/audio_handler.gd" id="1_11g53"]
+
+[node name="audioHandler" type="Node"]
+script = ExtResource("1_11g53")
+
+[node name="soundEffectQueue" type="Node" parent="."]
+
+[node name="soundEffect2DQueue" type="Node" parent="."]
