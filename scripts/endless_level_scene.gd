@@ -10,6 +10,7 @@ extends Node2D
 @onready var groundPoly := $groundPolygon
 @onready var mountainHandler := $mountainHandler
 @onready var climber := $climber
+@onready var rockParticles := $climber/rockParticles
 @onready var player := $player
 @onready var progressLabel := $UI/Label 
 @onready var angerMeter := $UI/angerMeter
@@ -70,12 +71,15 @@ func climberFinishedPath():
 	
 func spawnRock():
 	var rock_normal = (prev_rot + current_path.angle)/2.0 - PI/2.0
-	var rock_force = Vector2.UP.rotated(rock_normal + PI/4.0 + randf_range(-PI/8.0, PI/8.0)) * randf_range(500, 700)
+	var rock_force = Vector2(0,200)#Vector2.UP.rotated(rock_normal + PI/4.0 + randf_range(-PI/8.0, PI/8.0)) * randf_range(500, 700)
 	var rock_pos = climber.global_position + Vector2.UP.rotated(rock_normal) * 48
 	var new_rock = rock.instantiate()
-	rocks.add_child(new_rock)
-	new_rock.global_position = rock_pos
-	new_rock.fall(rock_force)
+	if randf() <= .6:
+		# play rock sound
+		rockParticles.emitting = true
+		rocks.add_child(new_rock)
+		new_rock.global_position = rock_pos
+		new_rock.fall(rock_force)
 
 func handleParallax():
 	cloudBG1.material.set_shader_parameter("cam_pos", camArm.global_position)

@@ -7,14 +7,14 @@ extends RigidBody2D
 @onready var colShape := $colShape
 @onready var current_phase := "idle"
 @onready var anger_val := 100.0
-@onready var anger_loss_rate := 50.0
+@onready var anger_loss_rate := 3
 @onready var distance_travelled := 0.0
 
 @export var climb_speed := 250.0
 @export var climbFollower : PathFollow2D
 @export var climbPath : Path2D
 @export var climb_curve : Curve
-@export var speed_mult := 1.0
+@export var speed_mult := 1.75
 @export var rope_starting_length := 10
 
 signal finished_path
@@ -62,6 +62,7 @@ func hit():
 	hit_tween.tween_property(climberSprite, "self_modulate", Color.WHITE, 0.5)	
 	anger_val += 20
 	anger_val = clamp(anger_val, 0, 100)
+	$rageParticles.emitting = true
 
 func initializeRope():
 	rope.initialize(rope_starting_length)
@@ -76,7 +77,7 @@ func rotateToNextPath(rot):
 	#print("PREV %S, NEW %s" % rotation new_rot)
 	#if new_rot >= 2*PI: new_rot -= 2*PI
 	var rotate_tween = get_tree().create_tween()
-	rotate_tween.tween_property(self, "rotation", new_rot, 1.0)
+	rotate_tween.tween_property(self, "rotation", new_rot, 1.0 / (anger_val/50))
 	await rotate_tween.finished
 	return
 
