@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ClimberAnim" load_steps=3 format=3 uid="uid://bmx7nuaiwfgrw"]
+
+[ext_resource type="Script" path="res://scripts/resources/climber_animation.gd" id="1_ebsfg"]
+
+[sub_resource type="Curve" id="Curve_5af27"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0]
+point_count = 1
+
+[resource]
+script = ExtResource("1_ebsfg")
+path_curve = SubResource("Curve_5af27")
+climber_anim = "ladder_climb"
+path_anim = ""
+climber_anim_speed_scale = 1.0

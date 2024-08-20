@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ClimberAnim" load_steps=3 format=3 uid="uid://bqor6r6u6flcp"]
+
+[ext_resource type="Script" path="res://scripts/resources/climber_animation.gd" id="1_hkwia"]
+
+[sub_resource type="Curve" id="Curve_5af27"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0]
+point_count = 1
+
+[resource]
+script = ExtResource("1_hkwia")
+path_curve = SubResource("Curve_5af27")
+climber_anim = "monkey_bar"
+path_anim = ""
+climber_anim_speed_scale = 1.0
