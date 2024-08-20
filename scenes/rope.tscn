@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://bf1ixe6t41hml"]
+
+[ext_resource type="Script" path="res://scripts/rope.gd" id="1_cdudm"]
+[ext_resource type="Texture2D" uid="uid://dxujd50tsvp1y" path="res://assets/sprites/rope.png" id="3_govnb"]
+[ext_resource type="PackedScene" path="res://scenes/rope_segment.tscn" id="3_o1643"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ndre7"]
+size = Vector2(32, 32)
+
+[node name="rope" type="Node2D" node_paths=PackedStringArray("ropeJoint")]
+script = ExtResource("1_cdudm")
+ropeJoint = NodePath("ropePin")
+
+[node name="ropeHolder" type="StaticBody2D" parent="."]
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ropeHolder"]
+shape = SubResource("RectangleShape2D_ndre7")
+
+[node name="ropeSegment" parent="." instance=ExtResource("3_o1643")]
+position = Vector2(0, 16)
+collision_mask = 4
+
+[node name="ogPin" type="PinJoint2D" parent="."]
+node_a = NodePath("../ropeHolder")
+node_b = NodePath("../ropeSegment")
+
+[node name="ropePin" type="PinJoint2D" parent="."]
+node_a = NodePath("../ropeHolder")
+node_b = NodePath("../ropeSegment")
+
+[node name="ropeLine" type="Line2D" parent="."]
+width = 8.0
+texture = ExtResource("3_govnb")
+texture_mode = 2
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2

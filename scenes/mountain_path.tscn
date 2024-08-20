@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://uols2le3dshw"]
+
+[ext_resource type="Script" path="res://scripts/mountain_path.gd" id="1_7mkdb"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_tvaga"]
+friction = 0.2
+bounce = 0.7
+
+[node name="mountainPath" type="Path2D"]
+script = ExtResource("1_7mkdb")
+
+[node name="mountainCol" type="StaticBody2D" parent="."]
+collision_layer = 24
+collision_mask = 0
+physics_material_override = SubResource("PhysicsMaterial_tvaga")
+
+[node name="colShape" type="CollisionShape2D" parent="mountainCol"]
+debug_color = Color(0.338965, 0.000808982, 0.874366, 0.419608)
+
+[node name="pathLine" type="Line2D" parent="."]
+closed = true
+width = 24.0
+default_color = Color(0.466667, 0.454902, 0.231373, 1)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2

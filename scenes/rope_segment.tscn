@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://c64lgoty6l8jn"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ufegp"]
+height = 32.0
+
+[node name="ropeSegment" type="RigidBody2D"]
+collision_layer = 4
+collision_mask = 12
+continuous_cd = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_ufegp")
+debug_color = Color(0.0192, 0.64, 0.319253, 0.713726)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]

@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://dajuooiedhdk8"]
+
+[ext_resource type="Texture2D" uid="uid://ekv4hjdu30c8" path="res://assets/sprites/hand.png" id="1_nah1k"]
+[ext_resource type="Script" path="res://scripts/player_hand.gd" id="1_vlp3l"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dy3rg"]
+radius = 24.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5q12s"]
+radius = 36.0
+
+[node name="playerHand" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("1_vlp3l")
+
+[node name="handSprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_nah1k")
+
+[node name="handCol" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_dy3rg")
+
+[node name="pickupHitbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 16
+
+[node name="pickupCol" type="CollisionShape2D" parent="pickupHitbox"]
+shape = SubResource("CircleShape2D_5q12s")

@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://cyv0u62cwr4g"]
+
+[ext_resource type="Script" path="res://scripts/endless_level_scene.gd" id="1_cgq1f"]
+[ext_resource type="PackedScene" uid="uid://bigvbyheh0exb" path="res://scenes/mountain_handler.tscn" id="2_j4svi"]
+[ext_resource type="PackedScene" uid="uid://bj6hqwphu854y" path="res://scenes/climber.tscn" id="3_uxfjg"]
+[ext_resource type="PackedScene" uid="uid://dp4ubt7ocp0jh" path="res://scenes/player.tscn" id="4_qhqjw"]
+[ext_resource type="PackedScene" uid="uid://dajuooiedhdk8" path="res://scenes/player_hand.tscn" id="5_58g4u"]
+
+[node name="endlessLevelScene" type="Node2D"]
+script = ExtResource("1_cgq1f")
+
+[node name="camArm" type="Node2D" parent="."]
+
+[node name="levelCam" type="Camera2D" parent="camArm"]
+
+[node name="skyBGPoly" type="Polygon2D" parent="camArm/levelCam"]
+color = Color(0.54902, 0.670588, 0.631373, 1)
+
+[node name="mountainHandler" parent="." instance=ExtResource("2_j4svi")]
+
+[node name="climber" parent="." node_paths=PackedStringArray("climbFollower") instance=ExtResource("3_uxfjg")]
+climbFollower = NodePath("../pathClimber")
+rope_starting_length = 15
+
+[node name="pathClimber" type="PathFollow2D" parent="."]
+
+[node name="player" parent="." node_paths=PackedStringArray("hand") instance=ExtResource("4_qhqjw")]
+hand = NodePath("../playerHand")
+
+[node name="playerHand" parent="." node_paths=PackedStringArray("cam", "player") instance=ExtResource("5_58g4u")]
+cam = NodePath("../camArm/levelCam")
+player = NodePath("../player")
+
+[node name="rocks" type="Node2D" parent="."]
+
+[node name="groundPolygon" type="Polygon2D" parent="."]
+color = Color(0.301961, 0.270588, 0.223529, 1)
