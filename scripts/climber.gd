@@ -45,7 +45,6 @@ func finishedPath():
 	emit_signal("finished_path")
 
 func hit():
-	print("IM HIT")
 	var hit_tween = get_tree().create_tween()
 	hit_tween.tween_property(climberSprite, "self_modulate", Color.REBECCA_PURPLE, 0.0)
 	hit_tween.tween_property(climberSprite, "self_modulate", Color.WHITE, 0.5)	
