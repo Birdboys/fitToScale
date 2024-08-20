@@ -4,7 +4,7 @@
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_tvaga"]
 friction = 0.2
-bounce = 0.7
+bounce = 0.85
 
 [node name="mountainPath" type="Path2D"]
 script = ExtResource("1_7mkdb")

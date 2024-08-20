@@ -83,6 +83,7 @@ player = NodePath("../player")
 [node name="rocks" type="Node2D" parent="."]
 
 [node name="groundPolygon" type="Polygon2D" parent="."]
+visible = false
 material = SubResource("ShaderMaterial_vq41b")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]

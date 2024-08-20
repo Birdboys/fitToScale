@@ -1,12 +1,13 @@
-extends Node2D
+extends RigidBody2D
 
 @onready var climberSprite := $climberSprite
 @onready var rope := $climberSprite/rope
 @onready var climberAnim := $climberAnim
 @onready var pathAnim := $pathAnim
+@onready var colShape := $colShape
 @onready var current_phase := "idle"
 @onready var anger_val := 100.0
-@onready var anger_loss_rate := 2.0
+@onready var anger_loss_rate := 50.0
 @onready var distance_travelled := 0.0
 
 @export var climb_speed := 250.0
@@ -18,13 +19,13 @@ extends Node2D
 
 signal finished_path
 signal ready_to_climb
+signal fell_off
 
 func _process(delta: float) -> void:
 	anger_val = clamp(anger_val - anger_loss_rate * delta, 0.0, 100.0)
 	match current_phase:
 		"climbing":
-			print(climbFollower.progress_ratio)
-			var added_progress = climb_curve.sample(climbFollower.progress_ratio) * climb_speed * speed_mult * sqrt(clamp(anger_val/100.0, 0.25, 1.0)) * delta 
+			var added_progress = climb_curve.sample(climbFollower.progress_ratio) * climb_speed * speed_mult * sqrt(clamp(anger_val/100.0, 0.5, 1.0)) * delta 
 			climbFollower.progress += added_progress
 			distance_travelled += added_progress/100.0
 			global_position = climbFollower.global_position
@@ -37,9 +38,11 @@ func _process(delta: float) -> void:
 			if pathAnim.is_playing(): pathAnim.seek(pathAnim.current_animation_length * climbFollower.progress_ratio)
 		"finishing":
 			global_position = climbFollower.global_position
-		"pausing":
+		"falling":
 			pass
-
+	if current_phase != "falling" and anger_val == 0.0:
+		fellOff()
+		
 func startClimbing(path):
 	var quad = getAngleQuad(path.angle)
 	await getClimbingTechnique(quad)
@@ -47,14 +50,12 @@ func startClimbing(path):
 	climbFollower.progress_ratio = 0.0
 	current_phase = "climbing"
 
-
 func finishedPath():
 	current_phase = "pausing"
 	emit_signal("finished_path")
 	climberAnim.stop()
 	pathAnim.stop()
 	
-
 func hit():
 	var hit_tween = get_tree().create_tween()
 	hit_tween.tween_property(climberSprite, "self_modulate", Color.REBECCA_PURPLE, 0.0)
@@ -69,7 +70,9 @@ func attachPlayer(player):
 	rope.attachPlayer(player)
 	
 func rotateToNextPath(rot):
+	if rotation > PI: rotation -= 2*PI
 	var new_rot = rot + PI/2
+	print("PREV ROT %s, ROT %s" % [rad_to_deg(rotation), rad_to_deg(new_rot)])
 	#print("PREV %S, NEW %s" % rotation new_rot)
 	#if new_rot >= 2*PI: new_rot -= 2*PI
 	var rotate_tween = get_tree().create_tween()
@@ -101,3 +104,13 @@ func getClimbingTechnique(quad : float, force=null):
 	if anim_data.climber_anim != "": climberAnim.play(anim_data.climber_anim, -1, anim_data.climber_anim_speed_scale)
 	if anim_data.path_anim != "": pathAnim.play(anim_data.path_anim, -1, 0.0)
 	climb_curve = anim_data.path_curve
+
+func fellOff():
+	current_phase = "falling"
+	freeze = false
+	linear_velocity = Vector2.ZERO
+	climberAnim.play("fell_off")
+	emit_signal("fell_off")
+	set_collision_mask_value(1, true)
+	set_collision_mask_value(4, true)
+	

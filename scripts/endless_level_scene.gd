@@ -13,6 +13,8 @@ extends Node2D
 @onready var player := $player
 @onready var progressLabel := $UI/Label 
 @onready var angerMeter := $UI/angerMeter
+@onready var cam_speed_mod := 1.0
+@onready var cam_lock := false
  
 var current_path
 var prev_path
@@ -21,7 +23,7 @@ var prev_rot
 
 func _ready() -> void:
 	climber.finished_path.connect(climberFinishedPath)
-	
+	climber.fell_off.connect(gameOver)
 	initializeBackgrounds()
 	attachClimberToMountain()
 	
@@ -29,10 +31,11 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("test"): mountainHandler.getNextPath()
-	camArm.global_position = camArm.global_position.move_toward((player.global_position + climber.global_position)/2.0 + Vector2.LEFT * 90, 900.0*delta)
+	if not cam_lock: camArm.global_position = camArm.global_position.move_toward((player.global_position + climber.global_position)/2.0 + Vector2.LEFT * 90, 900.0*delta)
 	handleParallax()
 	progressLabel.text = "DISTANCE TRAVELLED: %s" % int(climber.distance_travelled)
 	angerMeter.value = climber.anger_val
+	
 func initializeBackgrounds():
 	var size = get_viewport_rect().size
 	var poly = [Vector2(-size.x/2,-size.y/2), Vector2(size.x/2, -size.y/2), Vector2(size.x/2, size.y/2), Vector2(-size.x/2, size.y/2), Vector2(-size.x/2,-size.y/2)]
@@ -79,3 +82,6 @@ func handleParallax():
 	cloudBG2.material.set_shader_parameter("cam_pos", camArm.global_position)
 	cloudBG3.material.set_shader_parameter("cam_pos", camArm.global_position)
 	
+func gameOver():
+	await get_tree().create_timer(3.0).timeout
+	cam_lock = true
