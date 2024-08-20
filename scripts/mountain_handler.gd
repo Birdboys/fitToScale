@@ -58,7 +58,10 @@ func getNewPathSegment(force_angle = null):
 	var new_path_length = randi_range(path_length_min,path_length_max)
 	var new_path_angle 
 	if force_angle != null: new_path_angle = force_angle
-	else: new_path_angle = clamp(prev_angle + randf_range(-deg_to_rad(65), deg_to_rad(65)), path_angle_min, path_angle_max)
+	else:
+		var new_angle_min = clamp(prev_angle - deg_to_rad(65), path_angle_min, path_angle_max ) 
+		var new_angle_max = clamp(prev_angle + deg_to_rad(65), path_angle_min, path_angle_max ) 
+		new_path_angle = randf_range(new_angle_min, new_angle_max)
 	paths.add_child(new_path)
 	path_queue.append(new_path)
 	new_path.global_position = prev_path.end_point

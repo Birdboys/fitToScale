@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cyv0u62cwr4g"]
+[gd_scene load_steps=16 format=3 uid="uid://cyv0u62cwr4g"]
 
 [ext_resource type="Script" path="res://scripts/endless_level_scene.gd" id="1_cgq1f"]
 [ext_resource type="PackedScene" uid="uid://bigvbyheh0exb" path="res://scenes/mountain_handler.tscn" id="2_j4svi"]
@@ -43,6 +43,9 @@ shader_parameter/parallax_scale = Vector2(0, 0)
 shader_parameter/cam_pos = null
 shader_parameter/image_texture = ExtResource("5_o3cj6")
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xyi2i"]
+bg_color = Color(0.6, 0.309804, 0.6, 1)
+
 [node name="endlessLevelScene" type="Node2D"]
 script = ExtResource("1_cgq1f")
 
@@ -85,3 +88,21 @@ material = SubResource("ShaderMaterial_vq41b")
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 visible = false
 color = Color(0.819608, 0.694118, 0.529412, 1)
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="UI"]
+offset_right = 42.0
+offset_bottom = 23.0
+text = "penis"
+
+[node name="angerMeter" type="ProgressBar" parent="UI"]
+custom_minimum_size = Vector2(0, 64)
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -27.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/fill = SubResource("StyleBoxFlat_xyi2i")

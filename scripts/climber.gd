@@ -7,6 +7,7 @@ extends Node2D
 @onready var current_phase := "idle"
 @onready var anger_val := 100.0
 @onready var anger_loss_rate := 2.0
+@onready var distance_travelled := 0.0
 
 @export var climb_speed := 250.0
 @export var climbFollower : PathFollow2D
@@ -19,11 +20,13 @@ signal finished_path
 signal ready_to_climb
 
 func _process(delta: float) -> void:
-	#print(rad_to_deg(rotation))
+	anger_val = clamp(anger_val - anger_loss_rate * delta, 0.0, 100.0)
 	match current_phase:
 		"climbing":
 			print(climbFollower.progress_ratio)
-			climbFollower.progress += climb_curve.sample(climbFollower.progress_ratio) * climb_speed * speed_mult * clamp(anger_val/100.0, 0.25, 1.0) * delta 
+			var added_progress = climb_curve.sample(climbFollower.progress_ratio) * climb_speed * speed_mult * sqrt(clamp(anger_val/100.0, 0.25, 1.0)) * delta 
+			climbFollower.progress += added_progress
+			distance_travelled += added_progress/100.0
 			global_position = climbFollower.global_position
 			if climbFollower.progress_ratio >= 0.95:
 				current_phase = "finishing"
@@ -91,7 +94,7 @@ func getClimbingTechnique(quad : float, force=null):
 			1.0:
 				anim_data = await load("res://scripts/resources/dyno.tres")
 			2.0:
-				anim_data = await load("res://scripts/resources/dyno.tres")
+				anim_data = await load("res://scripts/resources/monkey_bar.tres")
 			3.0:
 				anim_data = await load("res://scripts/resources/monkey_bar.tres")
 	

@@ -126,6 +126,7 @@ collision_layer = 2
 collision_mask = 0
 
 [node name="colShape" type="CollisionShape2D" parent="climberSprite/climberBody"]
+visible = false
 shape = SubResource("CapsuleShape2D_c2jb4")
 
 [node name="rope" parent="climberSprite" instance=ExtResource("3_xoodm")]
@@ -138,6 +139,7 @@ collision_layer = 2
 collision_mask = 0
 
 [node name="hurtboxCol" type="CollisionShape2D" parent="climberHurtbox"]
+visible = false
 shape = SubResource("CapsuleShape2D_vj8dt")
 
 [node name="climberAnim" type="AnimationPlayer" parent="."]
