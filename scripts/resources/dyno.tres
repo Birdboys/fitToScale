@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ClimberAnim" load_steps=3 format=3 uid="uid://bdr72xndtl4wo"]
+
+[ext_resource type="Script" path="res://scripts/resources/climber_animation.gd" id="1_vd347"]
+
+[sub_resource type="Curve" id="Curve_5af27"]
+max_value = 3.0
+_data = [Vector2(0.2, 0.55), 0.0, 0.0, 0, 0, Vector2(0.25, 3), 0.0, 0.0, 0, 0, Vector2(0.640741, 3), 0.0, 0.0, 0, 0, Vector2(0.95, 1), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[resource]
+script = ExtResource("1_vd347")
+path_curve = SubResource("Curve_5af27")
+climber_anim = "dyno"
+path_anim = ""
+climber_anim_speed_scale = 1.0

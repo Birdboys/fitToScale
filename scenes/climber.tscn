@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://bj6hqwphu854y"]
+[gd_scene load_steps=32 format=3 uid="uid://bj6hqwphu854y"]
 
 [ext_resource type="Script" path="res://scripts/climber.gd" id="1_0255r"]
 [ext_resource type="PackedScene" uid="uid://bf1ixe6t41hml" path="res://scenes/rope.tscn" id="3_xoodm"]
@@ -18,6 +18,10 @@
 [ext_resource type="Texture2D" uid="uid://chscjgewm0git" path="res://assets/sprites/climber/climber_ladder_climb_6.png" id="17_bgdtg"]
 [ext_resource type="Texture2D" uid="uid://do2b7srsqtaoo" path="res://assets/sprites/climber/climber_ladder_climb_7.png" id="18_3guck"]
 [ext_resource type="Texture2D" uid="uid://caqmnkua38f2k" path="res://assets/sprites/climber/climber_ladder_climb_8.png" id="19_p11b7"]
+[ext_resource type="Texture2D" uid="uid://bgvn6p06rl7jy" path="res://assets/sprites/climber/climber_dyno_1.png" id="19_xenrh"]
+[ext_resource type="Texture2D" uid="uid://c7jgrbsnfj0ts" path="res://assets/sprites/climber/climber_dyno_2.png" id="20_v5kkx"]
+[ext_resource type="Texture2D" uid="uid://dx5r8uh2a78ox" path="res://assets/sprites/climber/climber_dyno_3.png" id="21_dgfbs"]
+[ext_resource type="Texture2D" uid="uid://eylm8pljhpc6" path="res://assets/sprites/climber/climber_dyno_4.png" id="22_hx8wj"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_c2jb4"]
 radius = 29.0
@@ -78,11 +82,36 @@ tracks/0/keys = {
 "values": [ExtResource("12_cbcfc"), ExtResource("13_s45b2"), ExtResource("14_t20l2"), ExtResource("15_33p2n"), ExtResource("16_ln0kq"), ExtResource("17_bgdtg"), ExtResource("18_3guck"), ExtResource("19_p11b7")]
 }
 
+[sub_resource type="Animation" id="Animation_ygk8a"]
+resource_name = "dyno"
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("climberSprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.55),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("19_xenrh"), ExtResource("20_v5kkx"), ExtResource("21_dgfbs"), ExtResource("22_hx8wj")]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_lpvlp"]
 _data = {
 "RESET": SubResource("Animation_1jerc"),
+"dyno": SubResource("Animation_ygk8a"),
 "ladder_climb": SubResource("Animation_denkf"),
 "monkey_bar": SubResource("Animation_87iq7")
+}
+
+[sub_resource type="Animation" id="Animation_3v7de"]
+length = 0.001
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8eagg"]
+_data = {
+"RESET": SubResource("Animation_3v7de")
 }
 
 [node name="climber" type="Node2D"]
@@ -117,3 +146,6 @@ libraries = {
 }
 
 [node name="pathAnim" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_8eagg")
+}

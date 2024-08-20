@@ -22,6 +22,7 @@ func _process(delta: float) -> void:
 	#print(rad_to_deg(rotation))
 	match current_phase:
 		"climbing":
+			print(climbFollower.progress_ratio)
 			climbFollower.progress += climb_curve.sample(climbFollower.progress_ratio) * climb_speed * speed_mult * clamp(anger_val/100.0, 0.25, 1.0) * delta 
 			global_position = climbFollower.global_position
 			if climbFollower.progress_ratio >= 0.95:
@@ -48,7 +49,7 @@ func finishedPath():
 	current_phase = "pausing"
 	emit_signal("finished_path")
 	climberAnim.stop()
-	#climberAnim.play
+	pathAnim.stop()
 	
 
 func hit():
@@ -88,9 +89,9 @@ func getClimbingTechnique(quad : float, force=null):
 			0.0:
 				anim_data = await load("res://scripts/resources/ladder_climb.tres")
 			1.0:
-				anim_data = await load("res://scripts/resources/ladder_climb.tres")
+				anim_data = await load("res://scripts/resources/dyno.tres")
 			2.0:
-				anim_data = await load("res://scripts/resources/monkey_bar.tres")
+				anim_data = await load("res://scripts/resources/dyno.tres")
 			3.0:
 				anim_data = await load("res://scripts/resources/monkey_bar.tres")
 	
