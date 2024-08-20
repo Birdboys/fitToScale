@@ -7,6 +7,7 @@ extends Node2D
 @onready var path_points := []
 @onready var paths := $mountainPaths
 @onready var mountainMesh := $mountainMesh
+@onready var mountainOccluder := $mountainOccluder
 
 var prev_path
 var prev_angle
@@ -50,6 +51,7 @@ func updateMesh():
 	pathers.append(Vector2(pathers[-1].x, pathers[0].y))
 	pathers.append(pathers[0])
 	mountainMesh.polygon = pathers
+	#mountainOccluder.occluder.polygon = pathers
 
 func getNewPathSegment(force_angle = null):
 	var new_path = mountainPath.instantiate()

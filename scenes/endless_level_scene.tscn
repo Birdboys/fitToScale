@@ -1,10 +1,47 @@
-[gd_scene load_steps=6 format=3 uid="uid://cyv0u62cwr4g"]
+[gd_scene load_steps=15 format=3 uid="uid://cyv0u62cwr4g"]
 
 [ext_resource type="Script" path="res://scripts/endless_level_scene.gd" id="1_cgq1f"]
 [ext_resource type="PackedScene" uid="uid://bigvbyheh0exb" path="res://scenes/mountain_handler.tscn" id="2_j4svi"]
+[ext_resource type="Texture2D" uid="uid://cxyelblnrdkos" path="res://assets/sprites/clouds3.png" id="3_pktsj"]
 [ext_resource type="PackedScene" uid="uid://bj6hqwphu854y" path="res://scenes/climber.tscn" id="3_uxfjg"]
+[ext_resource type="Texture2D" uid="uid://co3jvimsmj2k4" path="res://assets/sprites/clouds1.png" id="3_w8li4"]
+[ext_resource type="Texture2D" uid="uid://b8bqvtlpnfsbw" path="res://assets/sprites/clouds2.png" id="4_ga7a4"]
 [ext_resource type="PackedScene" uid="uid://dp4ubt7ocp0jh" path="res://scenes/player.tscn" id="4_qhqjw"]
 [ext_resource type="PackedScene" uid="uid://dajuooiedhdk8" path="res://scenes/player_hand.tscn" id="5_58g4u"]
+[ext_resource type="Shader" path="res://scripts/shaders/world_pos_tile.gdshader" id="5_jqdpy"]
+[ext_resource type="Texture2D" uid="uid://2hes4exf2rr4" path="res://assets/sprites/ground_tile.png" id="5_o3cj6"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rwbdo"]
+shader = ExtResource("5_jqdpy")
+shader_parameter/image_scale = 500.0
+shader_parameter/time_scale = Vector2(0.001, 0)
+shader_parameter/parallax_scale = Vector2(0, 0)
+shader_parameter/cam_pos = null
+shader_parameter/image_texture = ExtResource("3_pktsj")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_suplq"]
+shader = ExtResource("5_jqdpy")
+shader_parameter/image_scale = 750.0
+shader_parameter/time_scale = Vector2(0.005, 0)
+shader_parameter/parallax_scale = Vector2(0, 0.02)
+shader_parameter/cam_pos = null
+shader_parameter/image_texture = ExtResource("4_ga7a4")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hdump"]
+shader = ExtResource("5_jqdpy")
+shader_parameter/image_scale = 2000.0
+shader_parameter/time_scale = Vector2(0.02, 0)
+shader_parameter/parallax_scale = Vector2(0, 0.1)
+shader_parameter/cam_pos = null
+shader_parameter/image_texture = ExtResource("3_w8li4")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vq41b"]
+shader = ExtResource("5_jqdpy")
+shader_parameter/image_scale = 500.0
+shader_parameter/time_scale = Vector2(0, 0)
+shader_parameter/parallax_scale = Vector2(0, 0)
+shader_parameter/cam_pos = null
+shader_parameter/image_texture = ExtResource("5_o3cj6")
 
 [node name="endlessLevelScene" type="Node2D"]
 script = ExtResource("1_cgq1f")
@@ -15,6 +52,15 @@ script = ExtResource("1_cgq1f")
 
 [node name="skyBGPoly" type="Polygon2D" parent="camArm/levelCam"]
 color = Color(0.54902, 0.670588, 0.631373, 1)
+
+[node name="cloudBG3" type="Polygon2D" parent="camArm/levelCam"]
+material = SubResource("ShaderMaterial_rwbdo")
+
+[node name="cloudBG2" type="Polygon2D" parent="camArm/levelCam"]
+material = SubResource("ShaderMaterial_suplq")
+
+[node name="cloudBG1" type="Polygon2D" parent="camArm/levelCam"]
+material = SubResource("ShaderMaterial_hdump")
 
 [node name="mountainHandler" parent="." instance=ExtResource("2_j4svi")]
 
@@ -34,4 +80,8 @@ player = NodePath("../player")
 [node name="rocks" type="Node2D" parent="."]
 
 [node name="groundPolygon" type="Polygon2D" parent="."]
-color = Color(0.301961, 0.270588, 0.223529, 1)
+material = SubResource("ShaderMaterial_vq41b")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+visible = false
+color = Color(0.819608, 0.694118, 0.529412, 1)

@@ -4,6 +4,9 @@ extends Node2D
 @onready var rocks := $rocks
 @onready var camArm := $camArm
 @onready var skyBG := $camArm/levelCam/skyBGPoly
+@onready var cloudBG1 := $camArm/levelCam/cloudBG1
+@onready var cloudBG2 := $camArm/levelCam/cloudBG2
+@onready var cloudBG3 := $camArm/levelCam/cloudBG3
 @onready var groundPoly := $groundPolygon
 @onready var mountainHandler := $mountainHandler
 @onready var climber := $climber
@@ -19,16 +22,20 @@ func _ready() -> void:
 	initializeBackgrounds()
 	attachClimberToMountain()
 	
-	AudioHandler.togglePlayer("music", true)
+	#AudioHandler.togglePlayer("music", true)
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("test"): mountainHandler.getNextPath()
 	camArm.global_position = camArm.global_position.move_toward((player.global_position + climber.global_position)/2.0 + Vector2.LEFT * 90, 900.0*delta)
+	handleParallax()
 	
 func initializeBackgrounds():
 	var size = get_viewport_rect().size
 	var poly = [Vector2(-size.x/2,-size.y/2), Vector2(size.x/2, -size.y/2), Vector2(size.x/2, size.y/2), Vector2(-size.x/2, size.y/2), Vector2(-size.x/2,-size.y/2)]
 	skyBG.polygon = poly
+	cloudBG1.polygon = poly
+	cloudBG2.polygon = poly
+	cloudBG3.polygon = poly
 	groundPoly.polygon = [Vector2(-size.x, 0), Vector2(size.x, 0), Vector2(size.x, size.y), Vector2(-size.x, size.y), Vector2(-size.x, 0)]
 
 func attachClimberToMountain():
@@ -44,7 +51,6 @@ func attachClimberToMountain():
 	#player.freeze = true
 	#return
 	climber.startClimbing(current_path)
-
 	
 func climberFinishedPath():
 	prev_rot = current_path.angle
@@ -63,4 +69,8 @@ func spawnRock():
 	rocks.add_child(new_rock)
 	new_rock.global_position = rock_pos
 	new_rock.fall(rock_force)
-	
+
+func handleParallax():
+	cloudBG1.material.set_shader_parameter("cam_pos", camArm.global_position)
+	cloudBG2.material.set_shader_parameter("cam_pos", camArm.global_position)
+	cloudBG3.material.set_shader_parameter("cam_pos", camArm.global_position)
