@@ -1,9 +1,28 @@
-[gd_scene load_steps=6 format=3 uid="uid://d4e2c8pjd84il"]
+[gd_scene load_steps=9 format=3 uid="uid://d4e2c8pjd84il"]
 
 [ext_resource type="Script" path="res://scripts/rock.gd" id="1_ivwy3"]
 [ext_resource type="Texture2D" uid="uid://bo3lc8qaclosq" path="res://assets/sprites/rock.png" id="2_ffwxb"]
+[ext_resource type="Texture2D" uid="uid://4674p4qfuwbw" path="res://assets/sprites/rock2.png" id="3_t26ox"]
+[ext_resource type="Texture2D" uid="uid://cg6bvtegsw7iw" path="res://assets/sprites/rock3.png" id="4_4j724"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_rkqk0"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nq51t"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_ffwxb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_t26ox")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_4j724")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_eb31x"]
 radius = 17.0294
@@ -19,8 +38,10 @@ gravity_scale = 0.5
 continuous_cd = 2
 script = ExtResource("1_ivwy3")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_ffwxb")
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_nq51t")
+frame = 2
+frame_progress = 0.833961
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_eb31x")

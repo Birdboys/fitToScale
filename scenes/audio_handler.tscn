@@ -4,6 +4,7 @@
 [ext_resource type="AudioStream" uid="uid://bva4b166hqvrv" path="res://assets/sounds/sleep_music.wav" id="2_h41es"]
 
 [node name="audioHandler" type="Node"]
+process_mode = 3
 script = ExtResource("1_11g53")
 
 [node name="soundEffectQueue" type="Node" parent="."]
@@ -12,3 +13,4 @@ script = ExtResource("1_11g53")
 
 [node name="bgMusicPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_h41es")
+bus = &"music"

@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://cyv0u62cwr4g"]
+[gd_scene load_steps=20 format=3 uid="uid://cyv0u62cwr4g"]
 
 [ext_resource type="Script" path="res://scripts/endless_level_scene.gd" id="1_cgq1f"]
 [ext_resource type="PackedScene" uid="uid://bigvbyheh0exb" path="res://scenes/mountain_handler.tscn" id="2_j4svi"]
@@ -10,6 +10,8 @@
 [ext_resource type="PackedScene" uid="uid://dajuooiedhdk8" path="res://scenes/player_hand.tscn" id="5_58g4u"]
 [ext_resource type="Shader" path="res://scripts/shaders/world_pos_tile.gdshader" id="5_jqdpy"]
 [ext_resource type="Texture2D" uid="uid://2hes4exf2rr4" path="res://assets/sprites/ground_tile.png" id="5_o3cj6"]
+[ext_resource type="PackedScene" uid="uid://78vn3c4pqhjj" path="res://scenes/anger_meter.tscn" id="11_kixnc"]
+[ext_resource type="Theme" uid="uid://d0d4mhd7e8cfk" path="res://assets/ui_theme.tres" id="11_p744n"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rwbdo"]
 shader = ExtResource("5_jqdpy")
@@ -43,8 +45,67 @@ shader_parameter/parallax_scale = Vector2(0, 0)
 shader_parameter/cam_pos = null
 shader_parameter/image_texture = ExtResource("5_o3cj6")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xyi2i"]
-bg_color = Color(0.6, 0.309804, 0.6, 1)
+[sub_resource type="Animation" id="Animation_efreu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("UI/countdown:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["3"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("UI/countdown:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_psy55"]
+resource_name = "countdown"
+length = 4.0
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("UI/countdown:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.95, 1.95, 2.95),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": ["3", "2", "1", "CLIMB"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("UI/countdown:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.95, 1, 1.95, 2, 2.95, 3, 3.95),
+"transitions": PackedFloat32Array(2, 1, 1, 1, 2, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qbftm"]
+_data = {
+"RESET": SubResource("Animation_efreu"),
+"countdown": SubResource("Animation_psy55")
+}
 
 [node name="endlessLevelScene" type="Node2D"]
 script = ExtResource("1_cgq1f")
@@ -93,17 +154,33 @@ color = Color(0.819608, 0.694118, 0.529412, 1)
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="Label" type="Label" parent="UI"]
+visible = false
 offset_right = 42.0
 offset_bottom = 23.0
 text = "penis"
 
-[node name="angerMeter" type="ProgressBar" parent="UI"]
-custom_minimum_size = Vector2(0, 64)
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -27.0
+[node name="angerMeter" parent="UI" instance=ExtResource("11_kixnc")]
+
+[node name="countdown" type="Label" parent="UI"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -48.5
+offset_right = 20.0
+offset_bottom = 48.5
 grow_horizontal = 2
-grow_vertical = 0
-theme_override_styles/fill = SubResource("StyleBoxFlat_xyi2i")
+grow_vertical = 2
+theme = ExtResource("11_p744n")
+theme_type_variation = &"uiLabel"
+theme_override_font_sizes/font_size = 288
+text = "3"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="countdownAnim" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_qbftm")
+}

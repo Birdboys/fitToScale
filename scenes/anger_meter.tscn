@@ -1,0 +1,30 @@
+[gd_scene load_steps=8 format=3 uid="uid://78vn3c4pqhjj"]
+
+[ext_resource type="Script" path="res://scripts/anger_meter.gd" id="1_j2tjv"]
+[ext_resource type="Texture2D" uid="uid://gxt06hl3wuvv" path="res://assets/sprites/ui/anger_head.png" id="2_lrqio"]
+[ext_resource type="Texture2D" uid="uid://bbn44h665omjc" path="res://assets/sprites/ui/anger_eyes.png" id="3_umamu"]
+[ext_resource type="Texture2D" uid="uid://cnlmmggp4lodu" path="res://assets/sprites/ui/anger_mouth.png" id="4_bh080"]
+[ext_resource type="Texture2D" uid="uid://dwvfpjab1r5tf" path="res://assets/sprites/ui/anger_mouth_corners.png" id="5_beidi"]
+[ext_resource type="Texture2D" uid="uid://ckwtqatatc7fh" path="res://assets/sprites/ui/anger_brows.png" id="6_iq613"]
+[ext_resource type="Texture2D" uid="uid://c3evl80p45phq" path="res://assets/sprites/ui/anger_brows_corners.png" id="7_0rivf"]
+
+[node name="angerMeter" type="Node2D"]
+script = ExtResource("1_j2tjv")
+
+[node name="head" type="Sprite2D" parent="."]
+texture = ExtResource("2_lrqio")
+
+[node name="eyes" type="Sprite2D" parent="."]
+texture = ExtResource("3_umamu")
+
+[node name="mouth" type="Sprite2D" parent="."]
+texture = ExtResource("4_bh080")
+
+[node name="mouthCorners" type="Sprite2D" parent="."]
+texture = ExtResource("5_beidi")
+
+[node name="brows" type="Sprite2D" parent="."]
+texture = ExtResource("6_iq613")
+
+[node name="browCorners" type="Sprite2D" parent="."]
+texture = ExtResource("7_0rivf")

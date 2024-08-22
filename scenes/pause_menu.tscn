@@ -1,0 +1,184 @@
+[gd_scene load_steps=5 format=3 uid="uid://dwrnub2qcbkok"]
+
+[ext_resource type="Theme" uid="uid://d0d4mhd7e8cfk" path="res://assets/ui_theme.tres" id="1_urs08"]
+[ext_resource type="Texture2D" uid="uid://dstrsva4kwm85" path="res://assets/sprites/backpack.png" id="2_3f1y3"]
+[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="2_qgyx1"]
+[ext_resource type="Script" path="res://scripts/settings_menu.gd" id="4_r3aoi"]
+
+[node name="pauseMenu" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("2_qgyx1")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.501961)
+
+[node name="backpack" type="TextureRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_3f1y3")
+stretch_mode = 6
+
+[node name="uiMargin" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_urs08")
+theme_override_constants/margin_left = 128
+theme_override_constants/margin_top = 128
+theme_override_constants/margin_right = 128
+theme_override_constants/margin_bottom = 128
+
+[node name="mainButtons" type="VBoxContainer" parent="uiMargin"]
+layout_mode = 2
+theme_override_constants/separation = 32
+alignment = 1
+
+[node name="playButton" type="Button" parent="uiMargin/mainButtons"]
+custom_minimum_size = Vector2(256, 192)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_type_variation = &"redCarabiner"
+text = "PLAY"
+
+[node name="Panel" type="Panel" parent="uiMargin/mainButtons/playButton"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="settingsButton" type="Button" parent="uiMargin/mainButtons"]
+custom_minimum_size = Vector2(256, 192)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_type_variation = &"greenCarabiner"
+text = " SETTINGS "
+expand_icon = true
+
+[node name="Panel" type="Panel" parent="uiMargin/mainButtons/settingsButton"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="creditsButton" type="Button" parent="uiMargin/mainButtons"]
+custom_minimum_size = Vector2(256, 192)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_type_variation = &"blueCarabiner"
+text = " CREDITS "
+expand_icon = true
+
+[node name="Panel" type="Panel" parent="uiMargin/mainButtons/creditsButton"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="quitButton" type="Button" parent="uiMargin/mainButtons"]
+custom_minimum_size = Vector2(256, 192)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_type_variation = &"purpleCarabiner"
+text = "QUIT
+"
+expand_icon = true
+
+[node name="Panel" type="Panel" parent="uiMargin/mainButtons/quitButton"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="settingsButtons" type="VBoxContainer" parent="uiMargin"]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 32
+alignment = 1
+script = ExtResource("4_r3aoi")
+
+[node name="soundSlider" type="HBoxContainer" parent="uiMargin/settingsButtons"]
+layout_mode = 2
+
+[node name="soundLabel" type="Label" parent="uiMargin/settingsButtons/soundSlider"]
+layout_mode = 2
+theme_type_variation = &"uiLabel"
+text = "SOUND:"
+
+[node name="soundBar" type="HSlider" parent="uiMargin/settingsButtons/soundSlider"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+value = 50.0
+
+[node name="musicSlider" type="HBoxContainer" parent="uiMargin/settingsButtons"]
+layout_mode = 2
+
+[node name="musicLabel" type="Label" parent="uiMargin/settingsButtons/musicSlider"]
+layout_mode = 2
+theme_type_variation = &"uiLabel"
+text = "MUSIC:"
+
+[node name="musicBar" type="HSlider" parent="uiMargin/settingsButtons/musicSlider"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+value = 50.0
+
+[node name="creditsButtons" type="Panel" parent="uiMargin"]
+visible = false
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="uiMargin/creditsButtons"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="credits" type="RichTextLabel" parent="uiMargin/creditsButtons/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/outline_size = 12
+theme_override_font_sizes/normal_font_size = 48
+bbcode_enabled = true
+text = "[center]Design, Programming, Art, Sounds: Colby & Kyle
+Music: Kyle
+Font: VT323
+Testing: Family & Friends
+[/center]"
+fit_content = true

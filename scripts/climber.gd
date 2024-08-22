@@ -7,8 +7,9 @@ extends RigidBody2D
 @onready var colShape := $colShape
 @onready var current_phase := "idle"
 @onready var anger_val := 100.0
-@onready var anger_loss_rate := 3
+@onready var anger_loss_rate := 3.0
 @onready var distance_travelled := 0.0
+@onready var climbing := false
 
 @export var climb_speed := 250.0
 @export var climbFollower : PathFollow2D
@@ -22,7 +23,7 @@ signal ready_to_climb
 signal fell_off
 
 func _process(delta: float) -> void:
-	anger_val = clamp(anger_val - anger_loss_rate * delta, 0.0, 100.0)
+	if climbing: anger_val = clamp(anger_val - anger_loss_rate * delta, 0.0, 100.0)
 	match current_phase:
 		"climbing":
 			var added_progress = climb_curve.sample(climbFollower.progress_ratio) * climb_speed * speed_mult * sqrt(clamp(anger_val/100.0, 0.5, 1.0)) * delta 
@@ -39,7 +40,7 @@ func _process(delta: float) -> void:
 		"finishing":
 			global_position = climbFollower.global_position
 		"falling":
-			pass
+			anger_val = 0.0
 	if current_phase != "falling" and anger_val == 0.0:
 		fellOff()
 		
@@ -63,6 +64,7 @@ func hit():
 	anger_val += 20
 	anger_val = clamp(anger_val, 0, 100)
 	$rageParticles.emitting = true
+	AudioHandler.playSound2D("climber_hit", global_position)
 
 func initializeRope():
 	rope.initialize(rope_starting_length)
@@ -77,7 +79,7 @@ func rotateToNextPath(rot):
 	#print("PREV %S, NEW %s" % rotation new_rot)
 	#if new_rot >= 2*PI: new_rot -= 2*PI
 	var rotate_tween = get_tree().create_tween()
-	rotate_tween.tween_property(self, "rotation", new_rot, 1.0 / (anger_val/50))
+	rotate_tween.tween_property(self, "rotation", new_rot, 0.5 / (anger_val/50))
 	await rotate_tween.finished
 	return
 
@@ -109,9 +111,11 @@ func getClimbingTechnique(quad : float, force=null):
 func fellOff():
 	current_phase = "falling"
 	freeze = false
-	linear_velocity = Vector2.ZERO
 	climberAnim.play("fell_off")
 	emit_signal("fell_off")
+	await get_tree().create_timer(1.0).timeout
 	set_collision_mask_value(1, true)
 	set_collision_mask_value(4, true)
 	
+func mountainSound():
+	AudioHandler.playSound2D("climber_mountain", global_position)

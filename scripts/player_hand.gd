@@ -24,8 +24,9 @@ func _process(delta: float) -> void:
 		"open":
 			if Input.is_action_just_pressed("grab"): grab()
 		"pulling":
-			if Input.is_action_just_released("grab"): release()
-			getPullForce(delta)
+			pass
+			#if Input.is_action_just_released("grab"): release()
+			#
 		"holding":
 			if Input.is_action_just_released("grab"): release()
 			prev_screen_pos = curr_sreen_pos
@@ -40,6 +41,7 @@ func _process(delta: float) -> void:
 			global_position = player.global_position + player.global_position.direction_to(global_position) * max_hand_dist
 	handSprite.look_at(player.global_position)
 	handSprite.rotation -= PI/2
+	getPullForce(delta)
 	
 func getPullForce(delta):
 	var distance = clamp(player.global_position.distance_to(global_position)/max_hand_dist, 0.0, 1.0)
@@ -54,14 +56,14 @@ func grab():
 		rock.pickedUp()
 		rock.global_position = global_position + Vector2(0, -32)
 		current_phase = "holding"
-	else:
-		current_phase = "pulling"
+		AudioHandler.playSound2D("rock_catch", global_position)
 	
 func release():
 	match current_phase:
 		"pulling":
 			current_phase = "open"
 		"holding":
+			AudioHandler.playSound2D("rock_throw", global_position)
 			var throw_force = (curr_sreen_pos - prev_screen_pos) * throw_force_mult
 			rock.reparent(get_tree().root)
 			rock.thrown(throw_force)

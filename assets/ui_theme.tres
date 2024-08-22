@@ -1,0 +1,118 @@
+[gd_resource type="Theme" load_steps=34 format=3 uid="uid://d0d4mhd7e8cfk"]
+
+[ext_resource type="Texture2D" uid="uid://chqdavf4nyxh2" path="res://assets/sprites/ui/button_green2.png" id="1_0fnrr"]
+[ext_resource type="Texture2D" uid="uid://dqglppydp0w1p" path="res://assets/sprites/ui/grabber.png" id="1_5wuqk"]
+[ext_resource type="Texture2D" uid="uid://k0ce5aa5mc1h" path="res://assets/sprites/ui/button_hover.png" id="1_8cv4m"]
+[ext_resource type="Texture2D" uid="uid://o2bfv20nt1s6" path="res://assets/sprites/ui/rope.png" id="1_eueff"]
+[ext_resource type="Texture2D" uid="uid://bs58dfsj1as4k" path="res://assets/sprites/ui/button_blue2.png" id="1_g6to0"]
+[ext_resource type="Texture2D" uid="uid://dg3qkufnrlain" path="res://assets/sprites/ui/button_closed.png" id="2_t7v8k"]
+[ext_resource type="Texture2D" uid="uid://bbjb74l3rvwbw" path="res://assets/sprites/ui/button_green3.png" id="2_ug16o"]
+[ext_resource type="Texture2D" uid="uid://fvvcwp5wyba6" path="res://assets/sprites/ui/button_blue3.png" id="2_vuuos"]
+[ext_resource type="Texture2D" uid="uid://dcwu08a4y5k2j" path="res://assets/sprites/ui/button_green1.png" id="3_4olrs"]
+[ext_resource type="Texture2D" uid="uid://c18nbqrjklh4n" path="res://assets/sprites/ui/button_blue1.png" id="3_nag6r"]
+[ext_resource type="Texture2D" uid="uid://bd7nmtuxmjivy" path="res://assets/sprites/ui/button_open.png" id="3_sdbd5"]
+[ext_resource type="Texture2D" uid="uid://ctbm6qyubdrme" path="res://assets/sprites/ui/button_purple2.png" id="7_h3a3g"]
+[ext_resource type="Texture2D" uid="uid://mbi87um21odk" path="res://assets/sprites/ui/button_purple3.png" id="8_43uvw"]
+[ext_resource type="Texture2D" uid="uid://dn68mnj2ixhdg" path="res://assets/sprites/ui/button_purple1.png" id="9_b6v0b"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_i3p5m"]
+texture = ExtResource("1_eueff")
+axis_stretch_horizontal = 1
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ioccl"]
+content_margin_left = 16.0
+content_margin_top = 16.0
+content_margin_right = 16.0
+content_margin_bottom = 16.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_52182"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wrwmw"]
+texture = ExtResource("1_g6to0")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_c1llx"]
+texture = ExtResource("2_vuuos")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ctije"]
+texture = ExtResource("3_nag6r")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_05cql"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_13s8y"]
+texture = ExtResource("1_0fnrr")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_l6g6h"]
+texture = ExtResource("2_ug16o")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bp5jq"]
+texture = ExtResource("3_4olrs")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5lojr"]
+texture = ExtResource("2_ug16o")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xsimv"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3ak1k"]
+texture = ExtResource("7_h3a3g")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jfjpu"]
+texture = ExtResource("8_43uvw")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ovpqm"]
+texture = ExtResource("9_b6v0b")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rsslw"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_l7duv"]
+texture = ExtResource("1_8cv4m")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_85850"]
+texture = ExtResource("3_sdbd5")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ye1qp"]
+texture = ExtResource("2_t7v8k")
+
+[resource]
+Button/colors/font_outline_color = Color(0, 0, 0, 1)
+Button/constants/outline_size = 12
+Button/font_sizes/font_size = 96
+HSlider/icons/grabber = ExtResource("1_5wuqk")
+HSlider/icons/grabber_disabled = ExtResource("1_5wuqk")
+HSlider/icons/grabber_highlight = ExtResource("1_5wuqk")
+HSlider/styles/grabber_area = SubResource("StyleBoxTexture_i3p5m")
+HSlider/styles/grabber_area_highlight = SubResource("StyleBoxTexture_i3p5m")
+HSlider/styles/slider = SubResource("StyleBoxEmpty_ioccl")
+blueCarabiner/base_type = &"Button"
+blueCarabiner/styles/focus = SubResource("StyleBoxEmpty_52182")
+blueCarabiner/styles/hover = SubResource("StyleBoxTexture_wrwmw")
+blueCarabiner/styles/hover_pressed = SubResource("StyleBoxTexture_c1llx")
+blueCarabiner/styles/normal = SubResource("StyleBoxTexture_ctije")
+blueCarabiner/styles/pressed = SubResource("StyleBoxTexture_c1llx")
+greenCarabiner/base_type = &"Button"
+greenCarabiner/colors/font_outline_color = Color(0, 0, 0, 1)
+greenCarabiner/constants/outline_size = 12
+greenCarabiner/font_sizes/font_size = 94
+greenCarabiner/styles/focus = SubResource("StyleBoxEmpty_05cql")
+greenCarabiner/styles/hover = SubResource("StyleBoxTexture_13s8y")
+greenCarabiner/styles/hover_pressed = SubResource("StyleBoxTexture_l6g6h")
+greenCarabiner/styles/normal = SubResource("StyleBoxTexture_bp5jq")
+greenCarabiner/styles/pressed = SubResource("StyleBoxTexture_5lojr")
+purpleCarabiner/base_type = &"Button"
+purpleCarabiner/styles/focus = SubResource("StyleBoxEmpty_xsimv")
+purpleCarabiner/styles/hover = SubResource("StyleBoxTexture_3ak1k")
+purpleCarabiner/styles/hover_pressed = SubResource("StyleBoxTexture_jfjpu")
+purpleCarabiner/styles/normal = SubResource("StyleBoxTexture_ovpqm")
+purpleCarabiner/styles/pressed = SubResource("StyleBoxTexture_jfjpu")
+redCarabiner/base_type = &"Button"
+redCarabiner/colors/font_outline_color = Color(0, 0, 0, 1)
+redCarabiner/constants/outline_size = 12
+redCarabiner/font_sizes/font_size = 96
+redCarabiner/styles/focus = SubResource("StyleBoxEmpty_rsslw")
+redCarabiner/styles/hover = SubResource("StyleBoxTexture_l7duv")
+redCarabiner/styles/hover_pressed = SubResource("StyleBoxTexture_85850")
+redCarabiner/styles/normal = SubResource("StyleBoxTexture_ye1qp")
+redCarabiner/styles/pressed = SubResource("StyleBoxTexture_85850")
+uiLabel/base_type = &"Label"
+uiLabel/colors/font_outline_color = Color(0, 0, 0, 1)
+uiLabel/constants/outline_size = 12
+uiLabel/font_sizes/font_size = 96

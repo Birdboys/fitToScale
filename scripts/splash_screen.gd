@@ -6,14 +6,13 @@ func _ready():
 
 func _on_splash_anim_animation_finished(anim_name):
 	if anim_name == "splash":
-		pass
-		#get_tree().change_scene_to_file("res://Scenes/newlogin.tscn")
+		AudioHandler.playSound("ui_click")
+		get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
 
 func _input(event):
-	if event is InputEventMouseButton:
-		#AudioHandler.play('ui_click')
-		#get_tree().change_scene_to_file("res://Scenes/newlogin.tscn")
-		pass
-		
+	if event is InputEventMouseButton or event is InputEventKey:
+		AudioHandler.playSound("ui_click")
+		get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
+	
 func eeeh():
 	AudioHandler.playSound("eeeh")

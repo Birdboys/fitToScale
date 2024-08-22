@@ -1,0 +1,77 @@
+[gd_scene load_steps=4 format=3 uid="uid://b8jbgy5nbutr3"]
+
+[ext_resource type="Script" path="res://scripts/end_menu.gd" id="1_t4rup"]
+[ext_resource type="Texture2D" uid="uid://dstrsva4kwm85" path="res://assets/sprites/backpack.png" id="2_w8lix"]
+[ext_resource type="Theme" uid="uid://d0d4mhd7e8cfk" path="res://assets/ui_theme.tres" id="3_v0uxc"]
+
+[node name="endMenu" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_t4rup")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.501961)
+
+[node name="backpack" type="TextureRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_w8lix")
+stretch_mode = 6
+
+[node name="uiMargin" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_v0uxc")
+theme_override_constants/margin_left = 128
+theme_override_constants/margin_top = 128
+theme_override_constants/margin_right = 128
+theme_override_constants/margin_bottom = 128
+
+[node name="VBoxContainer" type="VBoxContainer" parent="uiMargin"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="uiMargin/VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"uiLabel"
+text = "YOU CLIMBED"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="uiMargin/VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"uiLabel"
+text = "13232132131"
+horizontal_alignment = 1
+
+[node name="Label3" type="Label" parent="uiMargin/VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"uiLabel"
+text = "FEET"
+horizontal_alignment = 1
+
+[node name="buttons" type="HBoxContainer" parent="uiMargin/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="playButton" type="Button" parent="uiMargin/VBoxContainer/buttons"]
+layout_mode = 2
+theme_type_variation = &"blueCarabiner"
+text = " AGAIN "
+
+[node name="quitButton" type="Button" parent="uiMargin/VBoxContainer/buttons"]
+layout_mode = 2
+theme_type_variation = &"redCarabiner"
+text = " QUIT "
+
+[connection signal="pressed" from="uiMargin/VBoxContainer/buttons/playButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="uiMargin/VBoxContainer/buttons/quitButton" to="." method="_on_quit_button_pressed"]

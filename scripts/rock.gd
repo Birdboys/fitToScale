@@ -18,6 +18,7 @@ func _process(delta: float) -> void:
 	pass
 
 func fall(force):
+	AudioHandler.playSound2D("rock_drop", global_position)
 	freeze = false
 	visible = true
 	$Line2D.points = [force, Vector2.ZERO]

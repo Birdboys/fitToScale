@@ -1,6 +1,7 @@
 extends Node2D
 
 @onready var rock := preload("res://scenes/rock.tscn")
+@onready var endMenu := preload("res://scenes/end_menu.tscn")
 @onready var rocks := $rocks
 @onready var camArm := $camArm
 @onready var skyBG := $camArm/levelCam/skyBGPoly
@@ -23,10 +24,12 @@ var prev_rot
 
 
 func _ready() -> void:
+	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 	climber.finished_path.connect(climberFinishedPath)
 	climber.fell_off.connect(gameOver)
 	initializeBackgrounds()
 	attachClimberToMountain()
+	
 	
 	#AudioHandler.togglePlayer("music", true)
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -34,8 +37,7 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("test"): mountainHandler.getNextPath()
 	if not cam_lock: camArm.global_position = camArm.global_position.move_toward((player.global_position + climber.global_position)/2.0 + Vector2.LEFT * 90, 900.0*delta)
 	handleParallax()
-	progressLabel.text = "DISTANCE TRAVELLED: %s" % int(climber.distance_travelled)
-	angerMeter.value = climber.anger_val
+	angerMeter.moveFace(climber.anger_val/100.0)
 	
 func initializeBackgrounds():
 	var size = get_viewport_rect().size
@@ -45,7 +47,7 @@ func initializeBackgrounds():
 	cloudBG2.polygon = poly
 	cloudBG3.polygon = poly
 	groundPoly.polygon = [Vector2(-size.x, 0), Vector2(size.x, 0), Vector2(size.x, size.y), Vector2(-size.x, size.y), Vector2(-size.x, 0)]
-
+	angerMeter.position = Vector2(96, size.y-96)
 func attachClimberToMountain():
 	current_path = mountainHandler.getPath(8)
 	climber.global_position = current_path.start_point
@@ -56,8 +58,10 @@ func attachClimberToMountain():
 	player.summonHand()
 	camArm.global_position = (player.global_position + climber.global_position)/2.0 + Vector2.LEFT * 90
 	groundPoly.global_position = player.global_position + Vector2(0, 32)
-	#player.freeze = true
-	#return
+	player.freeze = true
+	await countdown()
+	player.freeze = false
+	climber.climbing = true
 	climber.startClimbing(current_path)
 	
 func climberFinishedPath():
@@ -65,6 +69,7 @@ func climberFinishedPath():
 	prev_path = current_path
 	current_path = current_path.next
 	await climber.rotateToNextPath(current_path.angle)
+	AudioHandler.playSound("climber_mountain")
 	climber.startClimbing(current_path)
 	spawnRock()
 	mountainHandler.getNextPath()
@@ -89,3 +94,11 @@ func handleParallax():
 func gameOver():
 	await get_tree().create_timer(3.0).timeout
 	cam_lock = true
+	var new_menu = endMenu.instantiate()
+	new_menu.score_val = int(climber.distance_travelled)
+	add_child(new_menu)
+	
+func countdown():
+	$countdownAnim.play("countdown")
+	await $countdownAnim.animation_finished
+	return

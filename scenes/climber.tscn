@@ -23,7 +23,7 @@
 [ext_resource type="Texture2D" uid="uid://dx5r8uh2a78ox" path="res://assets/sprites/climber/climber_dyno_3.png" id="21_dgfbs"]
 [ext_resource type="Texture2D" uid="uid://eylm8pljhpc6" path="res://assets/sprites/climber/climber_dyno_4.png" id="22_hx8wj"]
 [ext_resource type="Texture2D" uid="uid://cgcb0xi6ghurn" path="res://assets/rage_particle.png" id="23_ukphp"]
-[ext_resource type="Texture2D" uid="uid://bya3uvsegpxdg" path="res://assets/rock.png" id="24_2bhsa"]
+[ext_resource type="Texture2D" uid="uid://cg6bvtegsw7iw" path="res://assets/sprites/rock3.png" id="24_288o5"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_c2jb4"]
 radius = 29.0
@@ -63,6 +63,23 @@ tracks/0/keys = {
 "update": 1,
 "values": [ExtResource("19_xenrh"), ExtResource("20_v5kkx"), ExtResource("21_dgfbs"), ExtResource("22_hx8wj")]
 }
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.55, 0.95),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"mountainSound"
+}, {
+"args": [],
+"method": &"mountainSound"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_mo7im"]
 resource_name = "fell_off"
@@ -97,6 +114,23 @@ tracks/0/keys = {
 "update": 1,
 "values": [ExtResource("12_cbcfc"), ExtResource("13_s45b2"), ExtResource("14_t20l2"), ExtResource("15_33p2n"), ExtResource("16_ln0kq"), ExtResource("17_bgdtg"), ExtResource("18_3guck"), ExtResource("19_p11b7")]
 }
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.4, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"mountainSound"
+}, {
+"args": [],
+"method": &"mountainSound"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_87iq7"]
 resource_name = "monkey_bar"
@@ -114,6 +148,23 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [ExtResource("4_k50rw"), ExtResource("5_l2iud"), ExtResource("6_raav4"), ExtResource("7_5p2no"), ExtResource("8_vbvdb"), ExtResource("9_e4r60"), ExtResource("10_gyqgr"), ExtResource("11_4gj0x")]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.4, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"mountainSound"
+}, {
+"args": [],
+"method": &"mountainSound"
+}]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_lpvlp"]
@@ -232,7 +283,7 @@ one_shot = true
 emitting = false
 amount = 6
 process_material = SubResource("ParticleProcessMaterial_ajsq0")
-texture = ExtResource("24_2bhsa")
+texture = ExtResource("24_288o5")
 lifetime = 0.5
 one_shot = true
 explosiveness = 1.0

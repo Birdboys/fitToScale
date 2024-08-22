@@ -20,7 +20,7 @@ debug_color = Color(0.338965, 0.000808982, 0.874366, 0.419608)
 [node name="pathLine" type="Line2D" parent="."]
 closed = true
 width = 8.0
-default_color = Color(0.301961, 0.270588, 0.223529, 1)
+default_color = Color(0.466667, 0.454902, 0.231373, 1)
 joint_mode = 2
 begin_cap_mode = 2
 end_cap_mode = 2
@@ -28,5 +28,5 @@ end_cap_mode = 2
 [node name="rockLine" type="Line2D" parent="."]
 closed = true
 width = 24.0
-default_color = Color(0.301961, 0.270588, 0.223529, 1)
+default_color = Color(0.466667, 0.454902, 0.231373, 1)
 joint_mode = 2
